@@ -49,4 +49,24 @@ public class AdministratorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
+
+//    b. Como administrador quiero poder anular cuentas
+//    para inhabilitar el uso momentáneo de la misma
+    @PutMapping("/ban/{id}")
+    public ResponseEntity<?> banAccount(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administratorService.banAccount(id));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
+
+    @PutMapping("/unban/{id}")
+    public ResponseEntity<?> unbanAccount(@PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(administratorService.unbanAccount(id));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
+        }
+    }
 }
