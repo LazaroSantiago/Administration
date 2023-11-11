@@ -1,7 +1,7 @@
 package controller;
 
 import entity.Administrator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 
 @Controller("AdministratorController")
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdministratorController {
-    @Autowired
-    private AdministratorService administratorService;
+
+    private final AdministratorService administratorService;
 
     @GetMapping("")
     public ResponseEntity<?> findAll() {

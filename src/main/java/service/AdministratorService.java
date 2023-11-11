@@ -3,6 +3,7 @@ package service;
 import dto.ScooterDTO;
 import entity.Administrator;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -16,37 +17,39 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Service("AdministratorService")
+@Service
+@RequiredArgsConstructor
 public class AdministratorService implements BaseService<Administrator> {
-    @Autowired
-    private AdministratorRepository administratorRepository;
+
+    private final AdministratorRepository administratorRepository;
 
     private final RestTemplate restTemplate;
 
     @Autowired
-    public AdministratorService(RestTemplateBuilder builder) {
+    public AdministratorService(AdministratorRepository administratorRepository, RestTemplateBuilder builder) {
+        this.administratorRepository = administratorRepository;
         this.restTemplate = builder.build();
     }
 
     @Override
-    @Transactional
     public List<Administrator> findAll() {
         return administratorRepository.findAll();
     }
 
     @Override
-    @Transactional
     public Administrator findById(Long id) throws Exception {
         try {
             Optional<Administrator> result = administratorRepository.findById(id);
-            return result.get();
+            if (result.isPresent())
+                return result.get();
+            else
+                throw new Exception();
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
-    @Transactional
     public boolean delete(Long id) throws Exception {
         try {
             if (administratorRepository.existsById(id)) {
@@ -61,7 +64,6 @@ public class AdministratorService implements BaseService<Administrator> {
     }
 
     @Override
-    @Transactional
     public Administrator save(Administrator entity) throws Exception {
         try {
             return this.administratorRepository.save(entity);

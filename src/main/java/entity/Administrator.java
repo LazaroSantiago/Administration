@@ -2,20 +2,18 @@ package entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
 @Data
+@Document(value = "admin")
 public class Administrator {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    public Administrator() {
-
-    }
+    public Administrator() {}
 
     public Administrator(Long id){
         this.id = id;
