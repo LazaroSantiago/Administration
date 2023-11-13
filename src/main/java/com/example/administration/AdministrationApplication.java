@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import util.Test;
 
 @SpringBootApplication
-@ComponentScan({"util", "controller", "entity", "repository", "service"})
+@ComponentScan({"util", "controller", "entity", "repository", "service", "com.example.administration"})
 @EnableJpaRepositories("repository")
 @EnableMongoRepositories("repository")
 @EntityScan("entity")
@@ -25,6 +25,6 @@ public class AdministrationApplication {
 
     @PostConstruct
     public void init() {
-        test.test();
+//        test.test();
     }
 }

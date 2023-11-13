@@ -15,8 +15,9 @@ public class Administrator {
 
     public Administrator() {}
 
-    public Administrator(Long id){
+    public Administrator(Long id, String name){
         this.id = id;
+        this.name = name;
     }
 
 }
