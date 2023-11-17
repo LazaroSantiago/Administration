@@ -3,6 +3,7 @@ package controller;
 import entity.Administrator;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AdministratorController {
 
-    private final AdministratorService administratorService;
+    @Autowired
+    private AdministratorService administratorService;
 
     @GetMapping("/all")
     @Operation(summary = "Obtener todos los administradores")

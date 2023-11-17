@@ -1,5 +1,6 @@
 package service;
 
+import dto.CantidadScootersDto;
 import dto.ScooterDTO;
 import entity.Administrator;
 import jakarta.transaction.Transactional;
@@ -95,9 +96,9 @@ public class AdministratorService implements BaseService<Administrator> {
 
     //B
     @Transactional
-    public ResponseEntity<?> getFunctionalScooters(){
+    public ResponseEntity<CantidadScootersDto> getFunctionalScooters(){
         String url = "localhost:8082/scooter/report/activated";
-        return restTemplate.getForEntity(url, Integer[].class);
+        return restTemplate.getForEntity(url, CantidadScootersDto.class);
     }
 
     //C
