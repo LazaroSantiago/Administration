@@ -18,7 +18,7 @@ public class AdministratorController {
 
     private final AdministratorService administratorService;
 
-    @GetMapping("")
+    @GetMapping("/all")
     @Operation(summary = "Obtener todos los administradores")
     public ResponseEntity<?> findAll() {
         try {
@@ -38,7 +38,7 @@ public class AdministratorController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/new")
     @Operation(summary = "Crear un nuevo administrador")
     public ResponseEntity<?> save(@RequestBody Administrator entity) {
         try {
@@ -104,16 +104,14 @@ public class AdministratorController {
     }
 
 //  Como administrador quiero consultar el total facturado en un rango de meses de cierto año.
-/*
-    @GetMapping("/profit/months/{months}/year/{year}")
-    public ResponseEntity<?> getProfits(int month1, int month2, int year){
+    @GetMapping("/profit/month1/{month1}/month2/{month2}/year/{year}")
+    public ResponseEntity<?> getProfits(@PathVariable int month1,@PathVariable int month2,@PathVariable int year){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(administratorService.getProfits(month1, month2, year));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }
     }
-*/
 
 //  Como administrador quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema
 //  habilite los nuevos precios
@@ -131,7 +129,7 @@ public class AdministratorController {
     @Operation(summary = "Hacer un ajuste del precio extra a partir de cierta fecha dada")
     public ResponseEntity<?> setExtraTripPrice(LocalDateTime date,@PathVariable Long price) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(administratorService.setNormalTripPrice(date, price));
+            return ResponseEntity.status(HttpStatus.OK).body(administratorService.setExtraTripPrice(date, price));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Por favor intente más tarde.\"}");
         }

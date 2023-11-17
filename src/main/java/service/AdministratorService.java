@@ -93,16 +93,17 @@ public class AdministratorService implements BaseService<Administrator> {
         return requestEntity;
     }
 
+    //B
     @Transactional
     public ResponseEntity<?> getFunctionalScooters(){
-        String url = "localhost:8082/scooters/functional_scooters";
+        String url = "localhost:8082/scooter/report/activated";
         return restTemplate.getForEntity(url, Integer[].class);
     }
 
+    //C
     @Transactional
     public List<ScooterDTO> getScootersByTripAmount(Long trips, int year) throws Exception {
-        //TODO: url
-        String url = "localhost:8082/scooters/most_used_scooters/trips/{"+trips+"}/year/{"+year+"}}";
+        String url = "localhost:8082/scooter/report/{"+trips+"}/{"+year+"}";
         ResponseEntity<ScooterDTO[]> responseEntity = restTemplate.getForEntity(url, ScooterDTO[].class);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
@@ -114,17 +115,14 @@ public class AdministratorService implements BaseService<Administrator> {
         }
     }
 
-    /*
-    public Long getProfits(int month1, int month2, int year){
-        //TODO: url
-        //creo que se va a llamar a trip o recepit en vez de scooters
-        String url = "localhost:8082/scooters/most_used_scooters/trips/{"+trips+"}/year/{"+year+"}}";
-        ResponseEntity<Long> responseEntity = restTemplate.getForEntity(url, Long.class);
-        return responseEntity.getBody();
-    }*/
+    //D
+    @Transactional
+    public ResponseEntity<?> getProfits(int month1, int month2, int year){
+        String url = "http://localhost:8082/trip/{"+month1+"}/{"+month2+"}/{"+year+"}";
+        return restTemplate.getForEntity(url, Integer[].class);
+    }
 
-    //Como administrador quiero hacer un ajuste de precios, y que a partir de cierta fecha el sistema
-    //habilite los nuevos precios
+    //F
     @Transactional
     public ResponseEntity<?> setNormalTripPrice(LocalDateTime date, Long price) throws InterruptedException {
         long time = getTime(date);
